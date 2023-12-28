@@ -8,7 +8,7 @@ const App = () => {
   const [highScore, setHighScore] = useState(0);
 
   return (
-    <div className="h-screen w-screen">
+    <div className="grid grid-rows-4 h-screen w-screen p-16">
       <Header score={score} highScore={highScore} />
       <RandomImage
         score={score}
