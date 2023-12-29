@@ -1,8 +1,7 @@
 import { useState, useEffect } from "react";
 
-const RandomImage = ({ score, setScore, highScore, setHighScore }) => {
-  const [images, setImages] = useState([]);
-  const [randomImage, setRandomImage] = useState(null);
+const RandomImage = ({ setImages, randomImage, setRandomImage }) => {
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const importImages = async () => {
@@ -20,6 +19,7 @@ const RandomImage = ({ score, setScore, highScore, setHighScore }) => {
         );
 
         setImages(imageList);
+        setLoading(false);
 
         // Randomly pick an initial image.
         const randomIndex = Math.floor(Math.random() * imageList.length);
@@ -30,22 +30,20 @@ const RandomImage = ({ score, setScore, highScore, setHighScore }) => {
     };
 
     importImages();
-  }, []);
-
-  const handleRandomImage = () => {
-    const randomIndex = Math.floor(Math.random() * images.length);
-    setRandomImage(images[randomIndex]);
-  };
+  }, [setImages, setRandomImage]);
 
   return (
-    <div className="row-span-3 container mx-auto flex justify-center items-start h-full">
-      <div className="h-full w-auto aspect-square rounded-xl p-5 bg-neutral-700 shadow-lg shadow-neutral-900/50">
-        <img
-          className="object-cover object-center h-full border-4 border-neutral-500 rounded-xl"
-          src={randomImage}
-          alt="random"
-          onClick={handleRandomImage}
-        />
+    <div className="flex justify-center items-start h-full aspect-square">
+      <div className="h-full w-auto rounded-xl p-5 bg-neutral-700 shadow-lg shadow-neutral-900/50">
+        {loading ? (
+          <div className="animate-pulse h-full w-full bg-neutral-300 rounded-xl"></div>
+        ) : (
+          <img
+            className="object-cover object-center h-full border-4 border-neutral-500 rounded-xl"
+            src={randomImage}
+            alt="random"
+          />
+        )}
       </div>
     </div>
   );
