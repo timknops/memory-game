@@ -6,6 +6,8 @@ import GuessButton from "./components/GuessButton";
 
 const App = () => {
   const [images, setImages] = useState([]);
+  const [baseImages, setBaseImages] = useState([]);
+  const [bonusImages, setBonusImages] = useState([]);
   const [guessedImages, setGuessedImages] = useState([]);
   const [randomImage, setRandomImage] = useState(null);
   const [score, setScore] = useState(0);
@@ -38,13 +40,19 @@ const App = () => {
     ) {
       setScore(0);
       setGuessedImages([]);
+      setImages(baseImages);
       pickRandomImage();
 
       return;
     }
 
+    handleCorrectGuess();
+  };
+
+  const handleCorrectGuess = () => {
     // If the user guesses correctly, increment the score and add the image to the guessedImages array if it hasn't been guessed before.
     setScore((prevScore) => prevScore + 1);
+
     if (!guessedImages.includes(randomImage)) {
       setGuessedImages([...guessedImages, randomImage]);
     }
@@ -52,6 +60,26 @@ const App = () => {
     // If the score is higher than the high score, update the high score.
     if (score >= highScore) {
       setHighScore(score + 1);
+    }
+
+    // Every 5 points, add a bonus image to the images array.
+    if (score % 5 === 0 && score !== 0) {
+      console.log("bonus image");
+      let randomIndex;
+
+      console.log(images.length, baseImages.length, bonusImages.length);
+
+      // Pick a random bonus image that hasn't been added to the images array yet.
+      // Also, make sure that the images array doesn't contain all the bonus images.
+      while (
+        // TODO Infinite loop.
+        images.includes(bonusImages[randomIndex]) ||
+        images.length !== baseImages.length + bonusImages.length
+      ) {
+        randomIndex = Math.floor(Math.random() * bonusImages.length);
+      }
+
+      setImages([...images, bonusImages[randomIndex]]);
     }
 
     pickRandomImage();
@@ -64,6 +92,8 @@ const App = () => {
         <GuessButton text="no" onClick={() => handleGuess("no")} />
         <RandomImage
           setImages={setImages}
+          setBaseImages={setBaseImages}
+          setBonusImages={setBonusImages}
           randomImage={randomImage}
           setRandomImage={setRandomImage}
         />

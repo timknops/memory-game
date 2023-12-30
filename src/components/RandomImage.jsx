@@ -1,6 +1,12 @@
 import { useState, useEffect } from "react";
 
-const RandomImage = ({ setImages, randomImage, setRandomImage }) => {
+const RandomImage = ({
+  setImages,
+  setBaseImages,
+  setBonusImages,
+  randomImage,
+  setRandomImage,
+}) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -18,19 +24,25 @@ const RandomImage = ({ setImages, randomImage, setRandomImage }) => {
           })
         );
 
-        setImages(imageList);
+        // Separate the images into two arrays, the first one containing all but the last 5 images.
+        const baseImageList = imageList.slice(0, imageList.length - 3);
+        const bonusImageList = imageList.slice(imageList.length - 3);
+
+        setBaseImages(baseImageList);
+        setBonusImages(bonusImageList);
+        setImages(baseImageList);
         setLoading(false);
 
-        // Randomly pick an initial image.
-        const randomIndex = Math.floor(Math.random() * imageList.length);
-        setRandomImage(imageList[randomIndex]);
+        // Randomly pick an initial image from the base images array.
+        const randomIndex = Math.floor(Math.random() * baseImageList.length);
+        setRandomImage(baseImageList[randomIndex]);
       } catch (error) {
         console.error("Error importing images:", error);
       }
     };
 
     importImages();
-  }, [setImages, setRandomImage]);
+  }, [setImages, setBaseImages, setRandomImage, setBonusImages]);
 
   return (
     <div className="flex justify-center items-start h-full aspect-square">
