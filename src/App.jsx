@@ -5,6 +5,7 @@ import RandomImage from "./components/RandomImage";
 import GuessButton from "./components/GuessButton";
 
 const App = () => {
+  const [imageList, setImageList] = useState([]);
   const [images, setImages] = useState([]);
   const [baseImages, setBaseImages] = useState([]);
   const [bonusImages, setBonusImages] = useState([]);
@@ -12,8 +13,25 @@ const App = () => {
   const [randomImage, setRandomImage] = useState(null);
   const [score, setScore] = useState(0);
   const [highScore, setHighScore] = useState(0);
+  const [bonusIndex, setBonusIndex] = useState(0);
 
-  /** Pick a random image from the images array. */
+  const randomizeAllImages = () => {
+    // Randomly shuffle the images.
+    for (let i = imageList.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [imageList[i], imageList[j]] = [imageList[j], imageList[i]];
+    }
+
+    // Separate the images into two arrays, the first one containing all but the last 5 images.
+    const baseImageList = imageList.slice(0, imageList.length - 3);
+    const bonusImageList = imageList.slice(imageList.length - 3);
+
+    setBaseImages(baseImageList);
+    setBonusImages(bonusImageList);
+    setImages(baseImageList);
+  };
+
+  /** Picks a random image from the images array and sets it as the randomImage state. */
   const pickRandomImage = () => {
     let randomIndex = Math.floor(Math.random() * images.length);
 
@@ -32,7 +50,7 @@ const App = () => {
    */
   const handleGuess = (guess) => {
     // If the user guesses incorrectly, reset the score and empty the guessedImages array.
-    // Incorrectly means that the user guesses no and the image has been guessed before
+    // Incorrectly means that the user guesses no and the image has been guessed before,
     // or the user guesses yes and the image hasn't been guessed before.
     if (
       (guess === "no" && guessedImages.includes(randomImage)) ||
@@ -40,8 +58,9 @@ const App = () => {
     ) {
       setScore(0);
       setGuessedImages([]);
-      setImages(baseImages);
+      randomizeAllImages();
       pickRandomImage();
+      setBonusIndex(0);
 
       return;
     }
@@ -49,37 +68,23 @@ const App = () => {
     handleCorrectGuess();
   };
 
+  /** If the user guesses correctly, increment the score and add the image to the guessedImages array. */
   const handleCorrectGuess = () => {
-    // If the user guesses correctly, increment the score and add the image to the guessedImages array if it hasn't been guessed before.
     setScore((prevScore) => prevScore + 1);
 
+    // If the image hasn't been guessed before, add it to the guessedImages array.
     if (!guessedImages.includes(randomImage)) {
       setGuessedImages([...guessedImages, randomImage]);
     }
 
-    // If the score is higher than the high score, update the high score.
     if (score >= highScore) {
       setHighScore(score + 1);
     }
 
     // Every 5 points, add a bonus image to the images array.
-    if (score % 5 === 0 && score !== 0) {
-      console.log("bonus image");
-      let randomIndex;
-
-      console.log(images.length, baseImages.length, bonusImages.length);
-
-      // Pick a random bonus image that hasn't been added to the images array yet.
-      // Also, make sure that the images array doesn't contain all the bonus images.
-      while (
-        // TODO Infinite loop.
-        images.includes(bonusImages[randomIndex]) ||
-        images.length !== baseImages.length + bonusImages.length
-      ) {
-        randomIndex = Math.floor(Math.random() * bonusImages.length);
-      }
-
-      setImages([...images, bonusImages[randomIndex]]);
+    if (score % 3 === 0 && score !== 0 && bonusIndex < bonusImages.length) {
+      setImages([...images, bonusImages[bonusIndex]]);
+      setBonusIndex((prevIndex) => prevIndex + 1);
     }
 
     pickRandomImage();
@@ -91,6 +96,8 @@ const App = () => {
       <div className="row-span-3 container mx-auto flex items-center justify-center gap-32">
         <GuessButton text="no" onClick={() => handleGuess("no")} />
         <RandomImage
+          imageList={imageList}
+          setImageList={setImageList}
           setImages={setImages}
           setBaseImages={setBaseImages}
           setBonusImages={setBonusImages}

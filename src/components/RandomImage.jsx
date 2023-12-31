@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 
 const RandomImage = ({
+  imageList,
+  setImageList,
   setImages,
   setBaseImages,
   setBonusImages,
@@ -10,6 +12,7 @@ const RandomImage = ({
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    /** Imports all the images in the /assets/img folder and stores them in the imageList state. */
     const importImages = async () => {
       try {
         // Import all images in the /assets/img folder.
@@ -17,32 +20,51 @@ const RandomImage = ({
         const imageKeys = Object.keys(imageContext); // Get all the paths of the images.
 
         // Import all the images and store them in an array.
-        const imageList = await Promise.all(
+        const importedImages = await Promise.all(
           imageKeys.map(async (key) => {
             const module = await imageContext[key]();
             return module.default;
           })
         );
 
-        // Separate the images into two arrays, the first one containing all but the last 5 images.
-        const baseImageList = imageList.slice(0, imageList.length - 3);
-        const bonusImageList = imageList.slice(imageList.length - 3);
-
-        setBaseImages(baseImageList);
-        setBonusImages(bonusImageList);
-        setImages(baseImageList);
-        setLoading(false);
-
-        // Randomly pick an initial image from the base images array.
-        const randomIndex = Math.floor(Math.random() * baseImageList.length);
-        setRandomImage(baseImageList[randomIndex]);
+        // Set the imageList state to the imported images array.
+        setImageList(importedImages);
       } catch (error) {
         console.error("Error importing images:", error);
       }
     };
 
     importImages();
-  }, [setImages, setBaseImages, setRandomImage, setBonusImages]);
+  }, [setImageList]);
+
+  useEffect(() => {
+    /** Randomly picks images from the imageList array and sets them as the baseImages and bonusImages states. */
+    const randomlyPickImages = () => {
+      // Randomly shuffle the images.
+      for (let i = imageList.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [imageList[i], imageList[j]] = [imageList[j], imageList[i]];
+      }
+
+      // Separate the images into two arrays, the first one containing all but the last 5 images.
+      const baseImageList = imageList.slice(0, imageList.length - 3);
+      const bonusImageList = imageList.slice(imageList.length - 3);
+
+      setBaseImages(baseImageList);
+      setBonusImages(bonusImageList);
+      setImages(baseImageList);
+
+      // Randomly pick an initial image from the base images array.
+      const randomIndex = Math.floor(Math.random() * baseImageList.length);
+      setRandomImage(baseImageList[randomIndex]);
+
+      setLoading(false);
+    };
+
+    if (imageList.length > 0) {
+      randomlyPickImages();
+    }
+  }, [imageList, setBaseImages, setBonusImages, setImages, setRandomImage]);
 
   return (
     <div className="flex justify-center items-start h-full aspect-square">
