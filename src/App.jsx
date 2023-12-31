@@ -7,7 +7,6 @@ import GuessButton from "./components/GuessButton";
 const App = () => {
   const [imageList, setImageList] = useState([]);
   const [images, setImages] = useState([]);
-  const [baseImages, setBaseImages] = useState([]);
   const [bonusImages, setBonusImages] = useState([]);
   const [guessedImages, setGuessedImages] = useState([]);
   const [randomImage, setRandomImage] = useState(null);
@@ -26,7 +25,6 @@ const App = () => {
     const baseImageList = imageList.slice(0, imageList.length - 3);
     const bonusImageList = imageList.slice(imageList.length - 3);
 
-    setBaseImages(baseImageList);
     setBonusImages(bonusImageList);
     setImages(baseImageList);
   };
@@ -99,7 +97,6 @@ const App = () => {
           imageList={imageList}
           setImageList={setImageList}
           setImages={setImages}
-          setBaseImages={setBaseImages}
           setBonusImages={setBonusImages}
           randomImage={randomImage}
           setRandomImage={setRandomImage}

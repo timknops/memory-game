@@ -4,7 +4,6 @@ const RandomImage = ({
   imageList,
   setImageList,
   setImages,
-  setBaseImages,
   setBonusImages,
   randomImage,
   setRandomImage,
@@ -50,7 +49,6 @@ const RandomImage = ({
       const baseImageList = imageList.slice(0, imageList.length - 3);
       const bonusImageList = imageList.slice(imageList.length - 3);
 
-      setBaseImages(baseImageList);
       setBonusImages(bonusImageList);
       setImages(baseImageList);
 
@@ -64,7 +62,7 @@ const RandomImage = ({
     if (imageList.length > 0) {
       randomlyPickImages();
     }
-  }, [imageList, setBaseImages, setBonusImages, setImages, setRandomImage]);
+  }, [imageList, setBonusImages, setImages, setRandomImage]);
 
   return (
     <div className="flex justify-center items-start h-full aspect-square">
