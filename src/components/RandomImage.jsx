@@ -45,9 +45,9 @@ const RandomImage = ({
         [imageList[i], imageList[j]] = [imageList[j], imageList[i]];
       }
 
-      // Separate the images into two arrays, the first one containing all but the last 5 images.
-      const baseImageList = imageList.slice(0, imageList.length - 3);
-      const bonusImageList = imageList.slice(imageList.length - 3);
+      // Separate the images into two arrays, the first one containing the first 8 images, and the second one containing the rest.
+      const baseImageList = imageList.slice(0, 8);
+      const bonusImageList = imageList.slice(8);
 
       setBonusImages(bonusImageList);
       setImages(baseImageList);

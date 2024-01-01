@@ -79,8 +79,8 @@ const App = () => {
       setHighScore(score + 1);
     }
 
-    // Every 5 points, add a bonus image to the images array.
-    if (score % 3 === 0 && score !== 0 && bonusIndex < bonusImages.length) {
+    // Every 4 points, add a bonus image to the images array.
+    if (score % 4 === 0 && score !== 0 && bonusIndex < bonusImages.length) {
       setImages([...images, bonusImages[bonusIndex]]);
       setBonusIndex((prevIndex) => prevIndex + 1);
     }
