@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import Header from "./components/Header";
 import RandomImage from "./components/RandomImage";
@@ -13,6 +13,20 @@ const App = () => {
   const [score, setScore] = useState(0);
   const [highScore, setHighScore] = useState(0);
   const [bonusIndex, setBonusIndex] = useState(0);
+
+  /** Gets the high score from localStorage and sets it as the highScore state. */
+  useEffect(() => {
+    const existingHighScore = JSON.parse(localStorage.getItem("highScore"));
+
+    if (existingHighScore) {
+      setHighScore(existingHighScore);
+    }
+  }, []);
+
+  /** Sets the highScore state to the high score in localStorage. Updated every time the highScore state changes. */
+  useEffect(() => {
+    localStorage.setItem("highScore", JSON.stringify(highScore));
+  }, [highScore]);
 
   /** Randomly picks images from the imageList array and sets them as the baseImages and bonusImages states. */
   const randomizeAllImages = () => {
