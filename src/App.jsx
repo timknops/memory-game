@@ -103,10 +103,12 @@ const App = () => {
     pickRandomImage();
   };
 
+  // TODO: Conditionally render the GuessButtons for responsiveness.
+
   return (
     <div className="grid grid-rows-4 h-screen w-screen p-16">
       <Header score={score} highScore={highScore} />
-      <div className="row-span-3 container mx-auto flex items-center justify-center gap-32">
+      <div className="row-span-3 container mx-auto flex items-center justify-center flex-col xl:flex-row xl:gap-16 2xl:gap-32">
         <GuessButton text="no" onClick={() => handleGuess("no")} />
         <RandomImage
           imageList={imageList}
