@@ -1,3 +1,9 @@
+/**
+ * Renders a button for guessing in the memory game.
+ * @param {string} text - The text to display on the button.
+ * @param {function} onClick - The function to be called when the button is clicked.
+ * @returns {JSX.Element} The rendered GuessButton component.
+ */
 const GuessButton = ({ text, onClick }) => {
   return (
     <button

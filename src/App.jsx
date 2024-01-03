@@ -14,6 +14,7 @@ const App = () => {
   const [highScore, setHighScore] = useState(0);
   const [bonusIndex, setBonusIndex] = useState(0);
 
+  /** Randomly picks images from the imageList array and sets them as the baseImages and bonusImages states. */
   const randomizeAllImages = () => {
     // Randomly shuffle the images.
     for (let i = imageList.length - 1; i > 0; i--) {
@@ -21,9 +22,9 @@ const App = () => {
       [imageList[i], imageList[j]] = [imageList[j], imageList[i]];
     }
 
-    // Separate the images into two arrays, the first one containing all but the last 5 images.
-    const baseImageList = imageList.slice(0, imageList.length - 3);
-    const bonusImageList = imageList.slice(imageList.length - 3);
+    // Separate the images into two arrays, the first one containing the first half of the images, and the second one containing the rest.
+    const baseImageList = imageList.slice(0, imageList.length / 2);
+    const bonusImageList = imageList.slice(imageList.length / 2);
 
     setBonusImages(bonusImageList);
     setImages(baseImageList);

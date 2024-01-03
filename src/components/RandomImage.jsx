@@ -1,5 +1,19 @@
 import { useState, useEffect } from "react";
 
+/**
+ * Renders a random image from a list of imported images.
+ *
+ * @component
+ * @param {string[]} imageList - The list of imported images.
+ * @param {function} setImageList - The function to set the imageList state.
+ * @param {string[]} images - The list of base images.
+ * @param {function} setImages - The function to set the images state.
+ * @param {string[]} bonusImages - The list of bonus images.
+ * @param {function} setBonusImages - The function to set the bonusImages state.
+ * @param {string} randomImage - The random image being displayed.
+ * @param {function} setRandomImage - The function to set the randomImage state.
+ * @returns {JSX.Element} The RandomImage component.
+ */
 const RandomImage = ({
   imageList,
   setImageList,
@@ -46,8 +60,8 @@ const RandomImage = ({
       }
 
       // Separate the images into two arrays, the first one containing the first 8 images, and the second one containing the rest.
-      const baseImageList = imageList.slice(0, 8);
-      const bonusImageList = imageList.slice(8);
+      const baseImageList = imageList.slice(0, imageList.length / 2);
+      const bonusImageList = imageList.slice(imageList.length / 2);
 
       setBonusImages(bonusImageList);
       setImages(baseImageList);

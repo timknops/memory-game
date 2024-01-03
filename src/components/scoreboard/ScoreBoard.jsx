@@ -1,3 +1,11 @@
+/**
+ * Renders the scoreboard component.
+ *
+ * @component
+ * @param {number} score - The current score.
+ * @param {number} highScore - The high score.
+ * @returns {JSX.Element} The rendered scoreboard component.
+ */
 import ScoreBoardItem from "./ScoreBoardItem";
 
 const ScoreBoard = ({ score, highScore }) => {
