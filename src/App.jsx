@@ -13,6 +13,7 @@ const App = () => {
   const [score, setScore] = useState(0);
   const [highScore, setHighScore] = useState(0);
   const [bonusIndex, setBonusIndex] = useState(0);
+  const [screenWidth, setScreenWidth] = useState(window.innerWidth);
 
   /** Gets the high score from localStorage and sets it as the highScore state. */
   useEffect(() => {
@@ -103,13 +104,28 @@ const App = () => {
     pickRandomImage();
   };
 
-  // TODO: Conditionally render the GuessButtons for responsiveness.
+  /** Sets the screenWidth state to the current window width. */
+  useEffect(() => {
+    const handleResize = () => {
+      setScreenWidth(window.innerWidth);
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, [screenWidth]);
+
+  const isDesktop = screenWidth >= 1280;
 
   return (
-    <div className="grid grid-rows-4 h-screen w-screen p-16">
+    <div className="w-screen p-16 flex flex-col lg:grid lg:grid-rows-6 xl:grid-rows-4 xl:h-screen">
       <Header score={score} highScore={highScore} />
-      <div className="row-span-3 container mx-auto flex items-center justify-center flex-col xl:flex-row xl:gap-16 2xl:gap-32">
-        <GuessButton text="no" onClick={() => handleGuess("no")} />
+      <div className="container mx-auto flex items-center justify-center flex-col lg:row-span-5 xl:row-span-3 xl:flex-row xl:gap-16 2xl:gap-32">
+        {isDesktop && (
+          <GuessButton text="no" onClick={() => handleGuess("no")} />
+        )}
         <RandomImage
           imageList={imageList}
           setImageList={setImageList}
@@ -118,8 +134,16 @@ const App = () => {
           randomImage={randomImage}
           setRandomImage={setRandomImage}
         />
-        <GuessButton text="yes" onClick={() => handleGuess("yes")} />
+        {isDesktop && (
+          <GuessButton text="yes" onClick={() => handleGuess("yes")} />
+        )}
       </div>
+      {!isDesktop && (
+        <div className="container mx-auto w-full flex h-56 justify-center gap-10 pt-10">
+          <GuessButton text="no" onClick={() => handleGuess("no")} />
+          <GuessButton text="yes" onClick={() => handleGuess("yes")} />
+        </div>
+      )}
     </div>
   );
 };
