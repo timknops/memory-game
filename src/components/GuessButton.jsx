@@ -7,7 +7,7 @@
 const GuessButton = ({ text, onClick }) => {
   return (
     <button
-      className="bg-emerald-50 text-emerald-400 text-7xl font-bold rounded-xl shadow-neutral-900/50 shadow-lg w-full xl:w-auto xl:aspect-square xl:h-2/5 hover:scale-110 hover:bg-emerald-400 hover:text-emerald-50 transition-all"
+      className="bg-emerald-50 text-emerald-400 text-5xl font-bold rounded-xl shadow-neutral-900/50 shadow-lg h-full w-full sm:text-7xl xl:w-auto xl:aspect-square xl:h-2/5 hover:scale-110 hover:bg-emerald-400 hover:text-emerald-50 transition-all"
       onClick={onClick}
     >
       {text}

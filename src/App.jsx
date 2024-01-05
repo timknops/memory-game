@@ -120,9 +120,9 @@ const App = () => {
   const isDesktop = screenWidth >= 1280;
 
   return (
-    <div className="w-screen p-16 flex flex-col lg:grid lg:grid-rows-6 xl:grid-rows-4 xl:h-screen">
+    <div className="w-screen flex flex-col gap-7 p-8 sm:gap-10 2xl:p-14 xl:h-screen">
       <Header score={score} highScore={highScore} />
-      <div className="container mx-auto flex items-center justify-center flex-col lg:row-span-5 xl:row-span-3 xl:flex-row xl:gap-16 2xl:gap-32">
+      <div className="container mx-auto flex items-center justify-center flex-col xl:flex-row xl:h-3/4 xl:gap-14 2xl:h-4/5 2xl:gap-24">
         {isDesktop && (
           <GuessButton text="no" onClick={() => handleGuess("no")} />
         )}
@@ -139,7 +139,7 @@ const App = () => {
         )}
       </div>
       {!isDesktop && (
-        <div className="container mx-auto w-full flex h-56 justify-center gap-10 pt-10">
+        <div className="container mx-auto w-full flex flex-col h-56 gap-5 justify-center sm:gap-10 sm:flex-row">
           <GuessButton text="no" onClick={() => handleGuess("no")} />
           <GuessButton text="yes" onClick={() => handleGuess("yes")} />
         </div>
