@@ -80,7 +80,7 @@ const RandomImage = ({
 
   return (
     <div className="flex justify-center items-start h-full aspect-square">
-      <div className="h-full w-auto rounded-xl p-5 bg-neutral-700 shadow-lg shadow-neutral-900/50">
+      <div className="h-full w-auto rounded-xl p-0 sm:p-5 bg-neutral-700 shadow-lg shadow-neutral-900/50">
         {loading ? (
           <div className="animate-pulse h-full w-full bg-neutral-300 rounded-xl"></div>
         ) : (

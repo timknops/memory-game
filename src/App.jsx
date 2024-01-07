@@ -4,6 +4,8 @@ import Header from "./components/Header";
 import RandomImage from "./components/RandomImage";
 import GuessButton from "./components/GuessButton";
 
+import "./App.css";
+
 const App = () => {
   const [imageList, setImageList] = useState([]);
   const [images, setImages] = useState([]);
