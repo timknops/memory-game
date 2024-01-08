@@ -1,3 +1,4 @@
+import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
 
 /**
@@ -79,7 +80,16 @@ const RandomImage = ({
   }, [imageList, setBonusImages, setImages, setRandomImage]);
 
   return (
-    <div className="flex justify-center items-start h-full aspect-square">
+    <motion.div
+      initial={{ opacity: 0, scale: 0.5 }}
+      animate={{ opacity: 1, scale: 1 }}
+      transition={{
+        duration: 0.8,
+        delay: 0.5,
+        ease: [0, 0.71, 0.2, 1.01],
+      }}
+      className="flex justify-center items-start h-full aspect-square"
+    >
       <div className="h-full w-auto rounded-xl p-0 sm:p-5 bg-neutral-700 shadow-lg shadow-neutral-900/50">
         {loading ? (
           <div className="animate-pulse h-full w-full bg-neutral-300 rounded-xl"></div>
@@ -91,7 +101,7 @@ const RandomImage = ({
           />
         )}
       </div>
-    </div>
+    </motion.div>
   );
 };
 
