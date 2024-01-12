@@ -14,6 +14,7 @@ const App = () => {
   const [highScore, setHighScore] = useState(0);
   const [bonusIndex, setBonusIndex] = useState(0);
   const [screenWidth, setScreenWidth] = useState(window.innerWidth);
+  const [currentGuess, setCurrentGuess] = useState(null);
 
   /** Gets the high score from localStorage and sets it as the highScore state. */
   useEffect(() => {
@@ -63,6 +64,8 @@ const App = () => {
    * @param {string} guess - The user's guess.
    */
   const handleGuess = (guess) => {
+    setCurrentGuess(guess);
+
     // If the user guesses incorrectly, reset the score and empty the guessedImages array.
     // Incorrectly means that the user guesses no and the image has been guessed before,
     // or the user guesses yes and the image hasn't been guessed before.
@@ -133,6 +136,7 @@ const App = () => {
           setBonusImages={setBonusImages}
           randomImage={randomImage}
           setRandomImage={setRandomImage}
+          currentGuess={currentGuess}
         />
         {isDesktop && (
           <GuessButton text="yes" onClick={() => handleGuess("yes")} />

@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { useState, useEffect } from "react";
 
 /**
@@ -22,6 +22,7 @@ const RandomImage = ({
   setBonusImages,
   randomImage,
   setRandomImage,
+  currentGuess,
 }) => {
   const [loading, setLoading] = useState(true);
 
@@ -90,15 +91,30 @@ const RandomImage = ({
       }}
       className="flex justify-center items-start h-full aspect-square"
     >
-      <div className="h-full w-auto rounded-xl p-0 sm:p-5 bg-neutral-700 shadow-lg shadow-neutral-900/50">
+      <div className="h-full w-full rounded-xl p-0 sm:p-5 bg-neutral-700 shadow-lg shadow-neutral-900/50 overflow-hidden">
         {loading ? (
           <div className="animate-pulse h-full w-full bg-neutral-300 rounded-xl"></div>
         ) : (
-          <img
-            className="object-cover object-center h-full border-4 border-neutral-500 rounded-xl"
-            src={randomImage}
-            alt="random"
-          />
+          <AnimatePresence initial={false}>
+            <motion.img
+              key={randomImage}
+              initial={{
+                x: currentGuess === "yes" ? 800 : -800,
+                opacity: 0,
+              }}
+              animate={{
+                x: 0,
+                opacity: 1,
+              }}
+              transition={{
+                x: { type: "spring", stiffness: 300, damping: 30 },
+                opacity: { duration: 0.2 },
+              }}
+              className="h-full w-full rounded-xl object-cover"
+              src={randomImage}
+              alt="Random"
+            />
+          </AnimatePresence>
         )}
       </div>
     </motion.div>
