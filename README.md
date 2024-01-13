@@ -1,8 +1,27 @@
-# React + Vite
+# Memory-Game
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+> Simple memory game built with React - animated using framer-motion
 
-Currently, two official plugins are available:
+This was my second project in React, with the main purpose of getting more familiar with the useEffect hook as well as the general React eco-system.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+[Live Demo](https://timknops.github.io/memory-game/)
+
+![Desktop project screenshot][memory-game-screenshot-full]
+
+## Built with
+
+- React
+- TailwindCSS
+- Framer-Motion
+- Vite
+
+
+
+
+
+
+
+
+
+
+[memory-game-screenshot-full]: src/assets/memory-game-screenshot-full.png
