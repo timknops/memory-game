@@ -4,7 +4,7 @@
 
 This was my second project in React, with the main purpose of getting more familiar with the useEffect hook as well as the general React eco-system.
 
-![Live Demo][live-demo]
+[Live Demo]([live-demo])
 
 ![Desktop project screenshot][memory-game-screenshot-full]
 
@@ -16,7 +16,7 @@ This was my second project in React, with the main purpose of getting more famil
 - Vite
 
 ## Installation
-You can check out the live demo ![here][live-demo]. If you wish to get a local copy running then follow the steps below:
+You can check out the live demo [here]([live-demo]). If you wish to get a local copy running then follow the steps below:
 
 ### 1. Clone the Repository
 
