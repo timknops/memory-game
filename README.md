@@ -44,4 +44,4 @@ Now you're all set to explore the project! If you encounter any issues or have q
 
 
 [live-demo]: https://timknops.github.io/memory-game/
-[memory-game-screenshot-full]: src/assets/memory-game-screenshot-full.png
+[memory-game-screenshot-full]: src/assets/screenshots/memory-game-screenshot-full.png
